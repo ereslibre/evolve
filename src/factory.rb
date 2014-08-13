@@ -14,12 +14,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-module Factory
+class Factory
 
   def Factory.empty_population(problem)
+    Population.new.tap do |p|
+      p.problem = problem
+    end
   end
 
   def Factory.empty_chromosome(population)
+    population.add_chromosome Chromosome.new
+  end
+
+  def Factory.random_chromosome(population)
+    population.add_chromosome Chromosome.new
   end
 
 end

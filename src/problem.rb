@@ -16,27 +16,47 @@
 
 require 'ostruct'
 
-module Problem
+class Problem
 
-  @best = nil
-  @elite = Array.new
+  attr_accessor :best, :elite
+
+  def initialize
+    @best = nil
+    @elite = Array.new
+  end
 
   def max_generations
+    300
   end
 
   def population_size
+    300
   end
 
   def cross_probability
+    0.7
   end
 
   def mutation_probability
+    0.05
   end
 
   def elite_size
+    10
   end
 
   def solve
+    population = Factory.empty_population self
+    population.gen_initial_population
+    population.evaluate
+    1.upto max_generations do |generation|
+      puts "*** Generation #{generation}"
+      population = Selection.roulette population
+      population.population += @elite.map(&:clone)
+      population.cross
+      population.mutate
+      population.evaluate
+    end
   end
 
 end

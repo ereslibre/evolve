@@ -14,16 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-module Selection
+class Selection
 
   def Selection.roulette(population)
-    res = Factory.empty_population(population.problem)
-    array_sum = population.array_sum
-    population.problem.population_size.each do
+    res = Factory.empty_population population.problem
+    res.generation = population.generation + 1
+    1.upto population.problem.population_size do
       r = Random.rand
       j = 0
-      population.score_sum.each do |i|
-        if r <= i then
+      1.upto population.score_sum do |i|
+        if r <= i
           res.add_chromosome(population.population[j].clone)
           break
         end

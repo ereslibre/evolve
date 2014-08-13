@@ -14,29 +14,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-module Chromosome
+class Chromosome
 
-  @population = nil
+  attr_accessor :population
 
-  @mother     = nil
-  @father     = nil
+  def initialize
+    @population = nil
+    @mother = nil
+    @father = nil
+  end
 
   def fitness
+    0
   end
 
   def cross(chromosome)
+    return Chromosome.new, Chromosome.new
   end
 
   def mutate
+    Chromosome.new
   end
 
-  def is_feasible
+  def feasible?
+    true
   end
 
   def evaluation
+    1
   end
 
   def score
+    fitness / @population.score_sum
   end
 
   def phenotype
