@@ -18,6 +18,8 @@ class Chromosome
 
   attr_accessor :population
 
+  attr_accessor :regexp
+
   def initialize
     @population = nil
     @mother = nil
@@ -25,15 +27,24 @@ class Chromosome
   end
 
   def fitness
-    0
+    fitness_ = 0
+    1.upto 10 do |i|
+      fitness_ += 1 if genotype =~ i.to_s
+    end
+    fitness_ -= 1000 if genotype =~ 'hello'
+    fitness_
   end
 
   def cross(chromosome)
-    return Chromosome.new, Chromosome.new
+    c1 = self.clone
+    c2 = chromosome.clone
+    c1.regexp = %w(\d+ \w+ \s+).sample
+    c2.regexp = %w(\d+ \w+ \s+).sample
+    return c1, c2
   end
 
   def mutate
-    Chromosome.new
+    self
   end
 
   def feasible?
@@ -48,10 +59,18 @@ class Chromosome
     fitness / @population.score_sum
   end
 
+  def random
+    c = Chromosome.new
+    c.regexp = %w(\d+ \w+ \s+).sample
+    c
+  end
+
   def phenotype
+    "Regular expression: /#{@regexp}/"
   end
 
   def genotype
+    /#{@regexp}/
   end
 
 end

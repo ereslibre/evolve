@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-require 'ostruct'
-
 class Problem
 
   attr_accessor :best, :elite
@@ -26,7 +24,7 @@ class Problem
   end
 
   def max_generations
-    300
+    10
   end
 
   def population_size
@@ -57,6 +55,8 @@ class Problem
       population.mutate
       population.evaluate
     end
+    puts ""
+    puts "*** Best result: #{best.phenotype}"
   end
 
 end

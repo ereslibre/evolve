@@ -27,7 +27,7 @@ class Factory
   end
 
   def Factory.random_chromosome(population)
-    population.add_chromosome Chromosome.new
+    population.add_chromosome Chromosome.new.random
   end
 
 end
