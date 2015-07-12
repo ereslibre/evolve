@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of the Evolve project
 # Copyright (C) 2011, Rafael Fernández López <ereslibre@ereslibre.es>
 #
@@ -16,31 +17,17 @@
 
 class Problem
 
-  attr_accessor :best, :elite
+  attr_accessor :max_generations, :population_size, :cross_probability,
+                :mutation_probability, :elite_size, :best, :elite
 
-  def initialize
+  def initialize(options = {})
+    @max_generations = options[:max_generations] || 10
+    @population_size = options[:population_size] || 300
+    @cross_probability = options[:cross_probability] || 0.7
+    @mutation_probability = options[:mutation_probability] || 0.05
+    @elite_size = options[:elite_size] || 10
     @best = nil
     @elite = Array.new
-  end
-
-  def max_generations
-    10
-  end
-
-  def population_size
-    300
-  end
-
-  def cross_probability
-    0.7
-  end
-
-  def mutation_probability
-    0.05
-  end
-
-  def elite_size
-    10
   end
 
   def solve
